@@ -10,27 +10,35 @@
             <h1>CSV View</h1>
             <textarea v-if="!isConverted" v-model="csvContent"></textarea>
             <div v-if="isConverted">
-                <span class="circle plus" v-on:click="addColumn()" title="Add column">&plus;</span>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td v-for="(v, k) in values[0]">
-                                <span class="remove circle" title="Delete column" v-on:click="removeColumn(k)">&times;</span>
-                            </td>
-                        </tr>
-                        <tr v-for="(item, i) in values">
-                            <td>
-                                <span class="remove circle" title="Delete row" v-on:click="removeRow(i)">&times;</span>
-                            </td>
-                            <td>&models;</td>
-                            <td v-for="(val, j) in item" contenteditable v-on:keyup="edit(i, j, $event)">{{ val }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <span class="circle plus" v-on:click="addRow()" title="Add row">&plus;</span>
+                <div class="table-container">
+                    <table>
+                        <tbody>
+                            <tr class="controls">
+                                <td style="width:30px"></td>
+                                <td style="width:30px"></td>
+                                <td v-for="(v, k) in values[0]" class="remove-container-h">
+                                    <span class="remove circle" title="Delete column" v-on:click="removeColumn(k)">&times;</span>
+                                </td>
+                            </tr>
+                            <tr v-for="(item, i) in values">
+                                <td class="remove-container-v">
+                                    <span class="remove circle" title="Delete row" v-on:click="removeRow(i)">&times;</span>
+                                </td>
+                                <td>&models;</td>
+                                <td v-for="(val, j) in item" contenteditable v-on:keyup="edit(i, j, $event)">{{ val }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="new-column">
+                    <span class="circle plus" v-on:click="addColumn()" title="Add column">&plus;</span>
+                </div>
+
+                <div class="new-row">
+                    <span class="circle plus" v-on:click="addRow()" title="Add row">&plus;</span>
+                </div>
             </div>
+
         </div>
         <script src="vendor/vue/vue.js"></script>
         <script src="js/script.js"></script>

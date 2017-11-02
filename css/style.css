@@ -1,4 +1,60 @@
+* {
+  box-sizing: border-box;
+}
+.circle {
+  border-radius: 100%;
+}
 body {
-  background: #5a5a5a;
+  background: #fefefe;
+}
+body h1 {
+  text-align: center;
+}
+body textarea {
+  width: 100%;
+  max-width: 800px;
+  height: 300px;
+}
+body button {
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  background: #70a7ff;
+  padding: 3px;
+}
+body .plus {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: #fff;
+  background-color: #09c;
+  float: left;
+  cursor: pointer;
+}
+body .remove {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #f30;
+  float: left;
+  cursor: pointer;
+}
+body table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border-collapse: collapse;
+}
+body table tr {
+  border-bottom: 2px solid #e9ecef;
+}
+body table th {
+  vertical-align: bottom;
+}
+body table td {
+  padding: .75rem;
+  vertical-align: top;
 }
 /*# sourceMappingURL=style.css.map */

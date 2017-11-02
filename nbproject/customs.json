@@ -2,6 +2,8 @@
     "elements": {},
     "attributes": {
         "v-if": {},
-        "v-on:click": {}
+        "v-on:click": {},
+        "v-for": {},
+        "v-model": {}
     }
 }

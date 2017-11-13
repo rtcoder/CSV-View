@@ -1,11 +1,10 @@
 new Vue({
     el: '#app',
     data: {
-        loaded: false,
         isConverted: false,
         csvContent: null,
         values: [],
-        delimiter: ','
+        delimiter: ","
     },
     methods: {
         edit: function (i, j, event) {
@@ -15,7 +14,7 @@ new Vue({
             this.values.push([]);
             let size = this.values[0].length;
             for (let i = 0; i < size; i++) {
-                this.values[this.values.length - 1].push("-");
+                this.values[this.values.length - 1].push("");
             }
         },
         removeRow: function (index) {
@@ -23,7 +22,7 @@ new Vue({
         },
         addColumn: function () {
             for (let i in this.values) {
-                this.values[i].push("-");
+                this.values[i].push("");
             }
         },
         removeColumn: function (index) {
@@ -38,28 +37,36 @@ new Vue({
                     .trim()
                     .split('"')
                     .map(function (v, i) {
-                        return i % 2 === 0 ? v : v.replace(',', "&#44;");
+                        return i % 2 === 0 ? v : v.replace(',', '[comma]');
                     })
                     .join('"')
                     .split("\n");
             let max = 0;
             this.values = [];
             for (let i in arr) {
-                let tmparr = arr[i].split(this.delimiter);
-                this.values.push(tmparr);
+                let tmparr = arr[i].split(',');
                 if (max < tmparr.length) {
                     max = tmparr.length;
                 }
                 if (max > tmparr.length) {
                     let countDiff = max - tmparr.length;
                     for (let j = 0; j < countDiff; j++) {
-                        tmparr.push("-");
+                        tmparr.push("");
                     }
                 }
 
+
+                for (let k in tmparr) {
+                    tmparr[k] = tmparr[k].replace('[comma]', ',');
+                }
+                this.values.push(tmparr);
             }
 
+
+
             this.isConverted = true;
+
+
         }
     }
 });

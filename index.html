@@ -8,7 +8,7 @@
     <body>
         <div id="app">
             <h1>CSV View</h1>
-            <textarea v-if="!isConverted" v-model="csvContent"></textarea>
+            <textarea v-if="!isConverted" placeholder="Tu wklej csv" v-model="csvContent"></textarea>
             <div v-if="isConverted">
                 <div class="table-container">
                     <table>

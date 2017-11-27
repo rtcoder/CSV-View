@@ -1,4 +1,4 @@
-new Vue({
+var app = new Vue({
     el: '#app',
     data: {
         isConverted: false,
@@ -9,7 +9,6 @@ new Vue({
     methods: {
         edit: function (i, j, event) {
             this.values[i][j] = event.currentTarget.innerHTML;
-            console.log('edycja', this.values);
         },
         addRow: function () {
             this.values.push([]);
@@ -17,26 +16,22 @@ new Vue({
             for (let i = 0; i < size; i++) {
                 this.values[this.values.length - 1].push("");
             }
-            console.log('nowy wiersz', this.values);
         },
         removeRow: function (index) {
-            this.values.splice(index, 1);
-            console.log('usunięcie wiersza ' + index, this.values);
-            this.$forceUpdate();
+            this.$delete(this.values, index);
         },
         addColumn: function () {
             for (let i in this.values) {
                 this.values[i].push("");
             }
-            console.log('nowa kolumna', this.values);
         },
         removeColumn: function (index) {
-
             for (let i in this.values) {
-                this.values[i].splice(index, 1);
+                this.$delete(this.values[i], index);
             }
-            console.log('usunięcie kolumny ' + index, this.values);
-            this.$forceUpdate();
+        },
+        change: function () {
+            this.values[1][1] = 'ffff';
         }
     },
     watch: {

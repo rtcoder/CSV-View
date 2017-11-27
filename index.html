@@ -8,6 +8,7 @@
     <body>
         <div id="app">
             <h1>CSV View</h1>
+            <button v-on:click="change()">ddd</button>
             <textarea v-if="!isConverted" placeholder="Tu wklej csv" v-model="csvContent"></textarea>
             <div v-if="isConverted">
                 <div class="table-container">
@@ -25,7 +26,9 @@
                                     <span class="remove circle" title="Delete row" v-on:click="removeRow(i)">&times;</span>
                                 </td>
                                 <td>&models;</td>
-                                <td v-for="(val, j) in item" contenteditable v-on:keyup="edit(i, j, $event)">{{ val }}</td>
+                                <td v-for="(val, j) in item">
+                                    <input type="text" v-model="values[i][j]">
+                                </td>
                             </tr>
                         </tbody>
                     </table>

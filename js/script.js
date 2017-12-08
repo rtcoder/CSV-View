@@ -1,3 +1,10 @@
+String.prototype.lines = function () {
+    return this.split(/\r*\n/);
+};
+String.prototype.lineCount = function () {
+    return this.lines().length;
+};
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -14,7 +21,11 @@ var app = new Vue({
             this.values.push([]);
             let size = this.values[0].length;
             for (let i = 0; i < size; i++) {
-                this.values[this.values.length - 1].push("");
+                this.values[this.values.length - 1].push({
+                    value: '',
+                    edited: false,
+                    rows: 1
+                });
             }
         },
         removeRow: function (index) {
@@ -22,7 +33,11 @@ var app = new Vue({
         },
         addColumn: function () {
             for (let i in this.values) {
-                this.values[i].push("");
+                this.values[i].push({
+                    value: '',
+                    edited: false,
+                    rows: 1
+                });
             }
         },
         removeColumn: function (index) {
@@ -30,9 +45,7 @@ var app = new Vue({
                 this.$delete(this.values[i], index);
             }
         },
-        change: function () {
-            this.values[1][1] = 'ffff';
-        }
+        change: function () {}
     },
     watch: {
         csvContent: function () {
@@ -60,16 +73,16 @@ var app = new Vue({
 
 
                 for (let k in tmparr) {
-                    tmparr[k] = tmparr[k].replace('[comma]', ',');
+                    tmparr[k] = {
+                        value: tmparr[k].replace('[comma]', ','),
+                        edited: false,
+                        rows: 1
+                    };
                 }
                 this.values.push(tmparr);
             }
 
-
-
             this.isConverted = true;
-
-
         }
     }
 });

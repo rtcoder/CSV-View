@@ -8,8 +8,8 @@
     <body>
         <div id="app">
             <h1>CSV View</h1>
-            <button v-on:click="change()">ddd</button>
-            <textarea v-if="!isConverted" placeholder="Tu wklej csv" v-model="csvContent"></textarea>
+            <button v-on:click="change()">Parse</button>
+            <textarea v-if="!isConverted" placeholder="Put CSV here" v-model="csvContent"></textarea>
             <div v-if="isConverted">
                 <div class="table-container">
                     <table>
@@ -26,8 +26,9 @@
                                     <span class="remove circle" title="Delete row" v-on:click="removeRow(i)">&times;</span>
                                 </td>
                                 <td>&models;</td>
-                                <td v-for="(val, j) in item">
-                                    <input type="text" v-model="values[i][j]">
+                                <td v-for="(val, j) in item" v-on:click="values[i][j].edited=true">
+                                    <pre type="text" v-if="!values[i][j].edited">{{ values[i][j].value }}</pre>
+                                    <textarea v-if="values[i][j].edited" :rows="values[i][j].rows" v-on:blur="values[i][j].edited=false" v-on:change="values[i][j].rows = values[i][j].value.lineCount()" v-model="values[i][j].value" autofocus></textarea>
                                 </td>
                             </tr>
                         </tbody>

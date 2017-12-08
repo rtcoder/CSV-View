@@ -45,7 +45,10 @@ var app = new Vue({
                 this.$delete(this.values[i], index);
             }
         },
-        change: function () {}
+        change: function () {},
+        keymonitor: function (i, j, event) {
+            this.values[i][j].rows = this.values[i][j].value.lineCount();
+        }
     },
     watch: {
         csvContent: function () {

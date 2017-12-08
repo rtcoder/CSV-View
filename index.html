@@ -28,7 +28,14 @@
                                 <td>&models;</td>
                                 <td v-for="(val, j) in item" v-on:click="values[i][j].edited=true">
                                     <pre type="text" v-if="!values[i][j].edited">{{ values[i][j].value }}</pre>
-                                    <textarea v-if="values[i][j].edited" :rows="values[i][j].rows" v-on:blur="values[i][j].edited=false" v-on:change="values[i][j].rows = values[i][j].value.lineCount()" v-model="values[i][j].value" autofocus></textarea>
+                                    <textarea
+                                        v-if="values[i][j].edited"
+                                        :rows="values[i][j].rows"
+                                        v-on:blur="values[i][j].edited=false"
+                                        v-model="values[i][j].value"
+                                        autofocus
+                                        v-on:keyup="keymonitor(i, j, $event)"
+                                        ></textarea>
                                 </td>
                             </tr>
                         </tbody>

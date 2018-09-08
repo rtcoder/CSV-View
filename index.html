@@ -1,57 +1,71 @@
 <!doctype html>
 <html>
-    <head>
-        <title>CSV View</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="css/style.css"/>
-    </head>
-    <body>
-        <div id="app">
-            <h1>CSV View</h1>
-            <button v-on:click="change()">Parse</button>
-            <textarea v-if="!isConverted" placeholder="Put CSV here" v-model="csvContent"></textarea>
-            <div v-if="isConverted">
-                <div class="table-container">
-                    <table>
-                        <tbody>
-                            <tr class="controls">
-                                <td style="width:30px"></td>
-                                <td style="width:30px"></td>
-                                <td v-for="(v, k) in values[0]" class="remove-container-h">
-                                    <span class="remove circle" title="Delete column" v-on:click="removeColumn(k)">&times;</span>
-                                </td>
-                            </tr>
-                            <tr v-for="(item, i) in values">
-                                <td class="remove-container-v">
-                                    <span class="remove circle" title="Delete row" v-on:click="removeRow(i)">&times;</span>
-                                </td>
-                                <td>&models;</td>
-                                <td v-for="(val, j) in item" v-on:click="values[i][j].edited=true">
-                                    <pre type="text" v-if="!values[i][j].edited">{{ values[i][j].value }}</pre>
-                                    <textarea
-                                        v-if="values[i][j].edited"
-                                        :rows="values[i][j].rows"
-                                        v-on:blur="values[i][j].edited=false"
-                                        v-model="values[i][j].value"
-                                        autofocus
-                                        v-on:keyup="keymonitor(i, j, $event)"
-                                        ></textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="new-column">
-                    <span class="circle plus" v-on:click="addColumn()" title="Add column">&plus;</span>
-                </div>
+<head>
+    <title>CSV View</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="app">
+    <h1>CSV View</h1>
 
-                <div class="new-row">
-                    <span class="circle plus" v-on:click="addRow()" title="Add row">&plus;</span>
-                </div>
-            </div>
+    <ul id="tabs" v-if="!isConverted">
+        <li @click="inputMode = 'file'">Open file</li>
+        <li @click="inputMode = 'textarea'">Paste CSV</li>
+    </ul>
+    <div v-if="!isConverted">
+        <label for="csvfile" v-if="inputMode === 'file'">
+            <input type="file" id="csvfile" ref="cvsFiles" @change="onFileUpload" accept="text/csv">
+        </label>
 
+        <textarea v-if="inputMode === 'textarea'" placeholder="Put CSV here" v-model="csvContent"
+                  autofocus></textarea>
+    </div>
+    <div v-if="isConverted">
+        <button @click="clear" class="clear">&times; Clear</button>
+        <button @click="toJSON">&times; To JSON</button>
+
+        <div class="table-container">
+            <table>
+                <tbody>
+                <tr class="controls">
+                    <td style="width:30px"></td>
+                    <td style="width:30px"></td>
+                    <td v-for="(v, k) in values[0]" class="remove-container-h">
+                        <span class="remove circle" title="Delete column" @click="removeColumn(k)">&times;</span>
+                    </td>
+                </tr>
+                <tr v-for="(item, i) in values">
+                    <td class="remove-container-v">
+                        <span class="remove circle" title="Delete row" @click="removeRow(i)">&times;</span>
+                    </td>
+                    <td>&models;</td>
+                    <td v-for="(val, j) in item" @click="focusRow(i, j)">
+                        <pre type="text" v-if="!values[i][j].edited">{{ values[i][j].value }}</pre>
+                        <textarea
+                                v-if="values[i][j].edited"
+                                :rows="values[i][j].rows+1"
+                                @blur="values[i][j].edited = false"
+                                v-model="values[i][j].value"
+                                autofocus="true"
+                                @keyup="keymonitor(i, j, $event)"
+                        ></textarea>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <script src="vendor/vue/vue.js"></script>
-        <script src="js/script.js"></script>
-    </body>
+        <div class="new-column">
+            <span class="circle plus" @click="addColumn()" title="Add column">&plus;</span>
+        </div>
+
+        <div class="new-row">
+            <span class="circle plus" @click="addRow()" title="Add row">&plus;</span>
+        </div>
+    </div>
+
+</div>
+<script src="vendor/vue/vue.js"></script>
+<script src="js/script.js"></script>
+</body>
 </html>

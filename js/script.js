@@ -9,14 +9,14 @@ var app = new Vue({
     el: '#app',
     data: {
         isConverted: false,
+        inputMode: 'file',
         csvContent: null,
+        withHeaders: false,
         values: [],
-        delimiter: ","
+        delimiter: ",",
+        files: []
     },
     methods: {
-        edit: function (i, j, event) {
-            this.values[i][j] = event.currentTarget.innerHTML;
-        },
         addRow: function () {
             this.values.push([]);
             let size = this.values[0].length;
@@ -45,21 +45,57 @@ var app = new Vue({
                 this.$delete(this.values[i], index);
             }
         },
-        change: function () {},
+        clear: function () {
+            this.values = [];
+            this.csvContent = null;
+            this.isConverted = false;
+        },
         keymonitor: function (i, j, event) {
             this.values[i][j].rows = this.values[i][j].value.lineCount();
+        },
+        toJSON: function () {
+
+        },
+        focusRow: function (i, j) {
+            for (let row of this.values) {
+                for (let column of row) {
+                    column.edited = false;
+                }
+            }
+            this.values[i][j].edited = true;
+        },
+        onFileUpload: function () {
+            this.files = this.$refs.cvsFiles.files;
+            let $this = this;
+            if (this.files.length) {
+                for (let file of this.files) {
+                    if(file.type !== 'text/csv'){
+                        alert("Filee "+file.name+" is not csv file")
+                        continue;
+                    }
+                    let r = new FileReader();
+                    r.onload = function (e) {
+                        $this.csvContent = e.target.result;
+                    };
+                    r.readAsText(file);
+                }
+            }
         }
+
     },
     watch: {
         csvContent: function () {
+            if(!this.csvContent){
+                return;
+            }
             let arr = this.csvContent
-                    .trim()
-                    .split('"')
-                    .map(function (v, i) {
-                        return i % 2 === 0 ? v : v.replace(',', '[comma]');
-                    })
-                    .join('"')
-                    .split("\n");
+                .trim()
+                .split('"')
+                .map(function (v, i) {
+                    return i % 2 === 0 ? v : v.replace(',', '[comma]');
+                })
+                .join('"')
+                .split("\n");
             let max = 0;
             this.values = [];
             for (let i in arr) {
@@ -73,7 +109,6 @@ var app = new Vue({
                         tmparr.push("");
                     }
                 }
-
 
                 for (let k in tmparr) {
                     tmparr[k] = {

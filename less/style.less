@@ -1,98 +1,122 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-.circle{
-    border-radius: 100%;
+
+.circle {
+  border-radius: 100%;
 }
-body{
-    background: #fefefe;
 
-    h1{
-        text-align: center;
-    }
-    textarea{
-        width: 100%;
-        max-width: 800px;
-        height: 300px;
-    }
+body {
+  background: #fefefe;
 
-    button{
-        border:2px solid rgba(0, 0, 0, 0.1);
-        background: #70a7ff;
-        padding: 3px;
+  h1 {
+    text-align: center;
+  }
+  textarea {
+    width: 100vw;
+    height: 300px;
+  }
+
+  button {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    background: #70a7ff;
+    padding: 3px;
+  }
+  ul.tabs {
+    display: flex;
+    li {
+
     }
-    .plus{
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        color: #fff;
-        background-color: #09c;
-        cursor: pointer;
-        display: inline-block;
+  }
+  label {
+    width: 30px;
+    height: 30px;
+    background: #000;
+    float: left;
+    input {
+      width: 0px;
+      height: 0px;
+      visibility: hidden;
+      opacity: 0;
     }
-    .remove-container-h, .remove-container-v{
-        text-align: center;
-        .remove{
-            width: 20px;
-            height: 20px;
-            line-height: 20px;
-            color: #fff;
-            text-align: center;
-            background-color: #f30;
-            cursor: pointer;
-            display: inline-block;
-            visibility: hidden;
+  }
+  .plus {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    background-color: #09c;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .remove-container-h, .remove-container-v {
+    text-align: center;
+    .remove {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      color: #fff;
+      text-align: center;
+      background-color: #f30;
+      cursor: pointer;
+      display: inline-block;
+      visibility: hidden;
+    }
+    .d {
+    }
+    &:hover {
+      .remove {
+        visibility: visible;
+      }
+    }
+  }
+  .table-container {
+    width: ~"calc(100% - 80px)";
+    float: left;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    table {
+      width: auto;
+      min-width: 100%;
+      margin-bottom: 1rem;
+      background-color: transparent;
+      border-collapse: collapse;
+      tr {
+        border-bottom: 2px solid #e9ecef;
+        &.controls {
+          td {
+            border: none;
+          }
         }
-        &:hover{
-            .remove{
-                visibility: visible;
-            }
+      }
+      th {
+        vertical-align: bottom;
+      }
+      td {
+        white-space: pre-line;
+        text-overflow: ellipsis;
+        padding: 5px;
+        vertical-align: top;
+        border-right: 2px solid #e9ecef;
+        textarea {
+          width: 100%;
+          height: auto;
+          float: left;
         }
+      }
     }
-    .table-container{
-        width:~"calc(100% - 80px)";
-        float: left;
-        overflow-y: hidden;
-        overflow-x: scroll;
-        table{
-            width: auto;
-            min-width: 100%;
-            margin-bottom: 1rem;
-            background-color: transparent;
-            border-collapse:collapse;
-            tr{
-                border-bottom: 2px solid #e9ecef;
-                &.controls{
-                    td{
-                        border: none;
-                    }
-                }
-            }
-            th{
-                vertical-align: bottom;
-            }
-            td{
-                padding: 5px;
-                vertical-align: top;
-                border-right: 2px solid #e9ecef;
-                input{
-                    width: 100%;
-                    height: 100%;
-                    float: left;
-                    border: none;
-                }
-            }
-        }
-    }
-    .new-column{
-        float: left;
-        width: 80px;
-        text-align: center;
-    }
-    .new-row{
-        width: 100%;
-        text-align: center;
-        float: left;
-    }
+  }
+  .new-column {
+    float: left;
+    width: 80px;
+    text-align: center;
+  }
+  .new-row {
+    width: 100%;
+    text-align: center;
+    float: left;
+  }
 }
